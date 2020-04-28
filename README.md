@@ -16,13 +16,25 @@ On définit une interface pour un repository générique `IGenericRepository<T>`
 
 En appelant une méthode de l'un ou l'autre de ces _repositories_, on va appeler les décorateurs.
 
+_Autofac_ va nous permettre de définir des décorateurs génériques, sans avoir besoin de préciser le type T.
+
+
 ## Décorateurs définis dans cet exemple
 
 ### GenericRepositoryLogDecorator
 Ce décorateur générique ajoute simplement une fonctionnalité de log, sans toucher au repository décoré.
 
 ### GenericRepositoryCacheDecorator
-Ce décorateur générique ajoute une fonctionnalité de cache, sans toucher au repository décoré.
+Ce décorateur générique ajoute une fonctionnalité de cache glissant, sans toucher au repository décoré.
+
+## Config Autofac
+
+```c#
+builder.RegisterGenericDecorator(
+	typeof(GenericRepositoryLogDecorator<>),
+	typeof(IGenericRepository<>)
+);
+```
 
 ## Technos utilisées
 * Aspnetcore 3.1
